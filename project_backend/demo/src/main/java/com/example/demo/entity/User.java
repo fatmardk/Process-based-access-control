@@ -54,13 +54,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // veya burada expire tarihi kontrol edebilirsin
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // ileride account lock eklersen burayı değiştir
-    }
+        return true; }
 
     @Override
     public boolean isEnabled() {

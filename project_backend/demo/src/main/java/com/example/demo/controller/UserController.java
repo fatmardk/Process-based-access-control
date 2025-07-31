@@ -22,7 +22,7 @@ public class UserController {
     private final AuthorizationService authorizationService;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-    // GET /api/user/all → Tüm kullanıcıları getir
+    // GET /api/user/all
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers(Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -37,9 +37,6 @@ public class UserController {
         UserDto dto = userService.getUserById(user.getId());
         return ResponseEntity.ok(dto);
     }
-
-
-
     // GET /api/user/{id} → Belirli kullanıcıyı getir
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable int id, Authentication authentication) {

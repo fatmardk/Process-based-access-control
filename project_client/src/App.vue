@@ -7,5 +7,5 @@
 </script>
 
 <style>
-/* Global stiller istersen buraya */
+
 </style>

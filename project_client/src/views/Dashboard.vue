@@ -1,8 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
 import api from '../services/api'
 
 const userInfo = ref(null)
+const authStore = useAuthStore()
+const router = useRouter()
 
 onMounted(async () => {
   try {
@@ -13,7 +17,13 @@ onMounted(async () => {
     console.error('Kullanıcı bilgileri alınamadı:', err)
   }
 })
+
+const logout = () => {
+  authStore.logout()
+  router.push('/login')
+}
 </script>
+
 
 <template>
   <div class="p-4">
@@ -31,5 +41,6 @@ onMounted(async () => {
         </li>
       </ul>
     </div>
+    <Button label="Çıkış Yap" type="button" class="w-1/5" @click="logout" />
   </div>
 </template>
