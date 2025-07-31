@@ -1,8 +1,16 @@
 package com.example.demo.dto;
 
-public class ProcessDto {
-    private String code;
-    private String name;
-    private String description;
-}
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProcessDto {
+    private String code;         // process_code
+    private String explanation;
+
+}

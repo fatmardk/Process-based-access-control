@@ -1,15 +1,15 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "SEC_PROCESS")
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Process {
@@ -23,5 +23,6 @@ public class Process {
 
     @OneToMany(mappedBy = "process")
     private List<SecMatrix> roleAccess;
+
 }
 

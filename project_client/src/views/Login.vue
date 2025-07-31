@@ -43,7 +43,7 @@ const handleLogin = async () => {
     await authStore.login(username.value, password.value)
     router.push('/') // Giriş başarılıysa ana sayfaya yönlendir
   } catch (err) {
-    error.value = 'Giriş başarısız. Lütfen kullanıcı adı ve şifrenizi kontrol edin.'
+    error.value = 'Login failed. Please check your username and password.'
     console.error(err)
   } finally {
     loading.value = false

@@ -23,4 +23,9 @@ public class Role {
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<UserRole> users;
+
+    @OneToMany(mappedBy = "role")
+    private List<SecMatrix> processes;
+
+
 }

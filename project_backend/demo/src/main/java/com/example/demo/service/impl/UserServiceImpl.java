@@ -47,10 +47,40 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(value = "users", key = "#id")
     public UserDto getUserById(int id) {
-        User user = userRepository.findById(id)
+        User user = userRepository.findWithRolesById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return UserMapper.toDto(user);
+
+        // AllowedProcesses oluştur
+        List<ProcessDto> allowedProcesses = user.getRoles().stream()
+                .flatMap(userRole -> userRole.getRole().getProcesses().stream())
+                .map(secMatrix -> {
+                    var p = secMatrix.getProcess();
+                    return new ProcessDto(p.getProcessCode(), p.getProcessExplanation());
+                })
+                .distinct()
+                .collect(Collectors.toList());
+
+        // DTO'yu manuel oluşturuyoruz
+        UserDto dto = new UserDto();
+        dto.setUserId(user.getId());
+        dto.setUsername(user.getUsername());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setIsActive(user.getIsActive());
+
+        dto.setRoles(user.getRoles().stream().map(userRole -> {
+            RoleDto r = new RoleDto();
+            r.setRoleCode(userRole.getRole().getRoleCode());
+            r.setGrantable(userRole.getGrantable());
+            r.setProjectId(userRole.getProjectId());
+            return r;
+        }).collect(Collectors.toList()));
+
+        dto.setAllowedProcesses(allowedProcesses);
+
+        return dto;
     }
+
 
     @Override
     public User getUserEntityById(Integer id) {
@@ -107,6 +137,7 @@ public class UserServiceImpl implements UserService {
                 userRole.setProjectId(roleDto.getProjectId() != null ? roleDto.getProjectId() : 1);
 
                 user.getRoles().add(userRole);
+
             }
         }
 

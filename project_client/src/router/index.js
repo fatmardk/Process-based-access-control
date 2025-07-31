@@ -13,7 +13,12 @@ const routes = [
   {
     path: '/login',
     component: Login
-  }
+  },
+  {
+  path: '/process/:code',
+  name: 'ProcessDetail',
+  component: () => import('../views/ProcessDetail.vue')
+}
 ]
 
 const router = createRouter({
@@ -21,7 +26,7 @@ const router = createRouter({
   routes
 })
 
-// 👉 Navigation Guard (Login kontrolü)
+
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   if (to.meta.requiresAuth && !authStore.isLoggedIn()) {
