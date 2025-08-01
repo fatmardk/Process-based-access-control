@@ -1,4 +1,4 @@
-package com.example.demo.controller.auth;
+package com.example.demo.auth;
 
 
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.UserDto;
-import com.example.demo.entity.User;
+import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface UserService extends UserDetailsService {
     // Yeni kullanıcı oluştur
     User createUser(UserDto dto);
 
-    // Tüm kullanıcıları DTO listesi olarak döner
+
     List<UserDto> getAllUsers();
 
     // ID ile kullanıcıyı DTO olarak döner

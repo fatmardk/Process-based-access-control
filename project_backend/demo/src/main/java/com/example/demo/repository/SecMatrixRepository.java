@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.SecMatrix;
-import com.example.demo.entity.SecMatrixId;
+import com.example.demo.model.entity.SecMatrix;
+import com.example.demo.model.entity.SecMatrixId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

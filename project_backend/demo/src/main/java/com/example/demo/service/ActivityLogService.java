@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.ActivityLog;
+import com.example.demo.model.entity.ActivityLog;
 import com.example.demo.repository.ActivityLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class ActivityLogService {
             String columnName,
             String oldValue,
             String newValue,
-            String activityType // örnek: UPDATE, CREATE, DELETE
+            String activityType
     ) {
         ActivityLog log = new ActivityLog();
         log.setUserName(userName);

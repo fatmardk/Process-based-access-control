@@ -1,9 +1,8 @@
-package com.example.demo.entity;
+package com.example.demo.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Collection;
 import java.util.List;
 
 @Entity

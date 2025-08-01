@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Process;
-import com.example.demo.entity.SecProcess;
+import com.example.demo.model.entity.Process;
+import com.example.demo.model.entity.SecProcess;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.entity.User;
+import com.example.demo.model.entity.User;
 import com.example.demo.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

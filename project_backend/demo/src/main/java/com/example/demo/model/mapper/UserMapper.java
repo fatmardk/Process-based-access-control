@@ -1,8 +1,8 @@
-package com.example.demo.mapper;
+package com.example.demo.model.mapper;
 
-import com.example.demo.dto.RoleDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.entity.User;
+import com.example.demo.model.dto.RoleDto;
+import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.entity.User;
 
 import java.util.stream.Collectors;
 

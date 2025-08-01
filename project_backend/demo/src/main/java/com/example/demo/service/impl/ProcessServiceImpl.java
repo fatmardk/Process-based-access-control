@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.ProcessDto;
-import com.example.demo.entity.Process;
+import com.example.demo.model.dto.ProcessDto;
+import com.example.demo.model.entity.Process;
 import com.example.demo.repository.ProcessRepository;
 import com.example.demo.service.ProcessService;
 import lombok.RequiredArgsConstructor;

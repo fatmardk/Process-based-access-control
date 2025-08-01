@@ -1,7 +1,7 @@
-package com.example.demo.controller.auth;
+package com.example.demo.auth;
 
 import com.example.demo.config.JwtService;
-import com.example.demo.entity.User;
+import com.example.demo.model.entity.User;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;

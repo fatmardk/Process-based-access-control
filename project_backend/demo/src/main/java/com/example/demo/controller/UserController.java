@@ -1,15 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.UserDto;
-import com.example.demo.entity.User;
+import com.example.demo.exception.AccessDeniedException;
+import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.entity.User;
+import com.example.demo.service.SecMatrixService;
 import com.example.demo.service.UserService;
-import com.example.demo.service.AuthorizationService;
-import com.example.demo.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
@@ -19,61 +17,75 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final AuthorizationService authorizationService;
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final SecMatrixService secMatrixService;
 
-    // GET /api/user/all
+    private static final String READ_USERS = "READ_USERS";
+    private static final String UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";
+    private static final String DELETE_USER = "DELETE_USER";
+
+    private boolean hasProcessAccess(User user, String processCode) {
+        return secMatrixService.hasAccessToProcess(user, processCode);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers(Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (!authorizationService.hasAccessToProcess(currentUser, "READ_USERS")) {
-            return ResponseEntity.status(403).body("You do not have access to this process");
+
+        if (!hasProcessAccess(currentUser, READ_USERS)) {
+            throw new AccessDeniedException(READ_USERS);
         }
+
         return ResponseEntity.ok(userService.getAllUsers());
     }
+
     @GetMapping("/me")
     public ResponseEntity<UserDto> getCurrentUser(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        UserDto dto = userService.getUserById(user.getId());
-        return ResponseEntity.ok(dto);
+        User currentUser = (User) authentication.getPrincipal();
+        UserDto userDto = userService.getUserById(currentUser.getId());
+        return ResponseEntity.ok(userDto);
     }
-    // GET /api/user/{id} → Belirli kullanıcıyı getir
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable int id, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (!authorizationService.hasAccessToProcess(currentUser, "READ_USERS")) {
-            return ResponseEntity.status(403).body("You do not have access to this process");
+
+        if (!hasProcessAccess(currentUser, READ_USERS)) {
+            throw new AccessDeniedException(READ_USERS);
         }
+
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    // PUT /api/user/update → Kendi bilgilerini güncelle
     @PutMapping("/update")
     public ResponseEntity<?> updateCurrentUser(@RequestBody UserDto dto, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (!authorizationService.hasAccessToProcess(currentUser, "UPDATE_USER_PROFILE")) {
-            return ResponseEntity.status(403).body("You do not have access to this process");
+
+        if (!hasProcessAccess(currentUser, UPDATE_USER_PROFILE)) {
+            throw new AccessDeniedException(UPDATE_USER_PROFILE);
         }
+
         return ResponseEntity.ok(userService.updateUser(currentUser.getId(), dto));
     }
 
-    // PUT /api/user/update/{id} → Admin başka kullanıcıyı günceller
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateUserByAdmin(@PathVariable int id, @RequestBody UserDto dto, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (!authorizationService.hasAccessToProcess(currentUser, "UPDATE_USER_PROFILE")) {
-            return ResponseEntity.status(403).body("You do not have access to this process");
+
+        if (!hasProcessAccess(currentUser, UPDATE_USER_PROFILE)) {
+            throw new AccessDeniedException(UPDATE_USER_PROFILE);
         }
+
         return ResponseEntity.ok(userService.updateUser(id, dto));
     }
 
-    // DELETE /api/user/{id} → Kullanıcı sil
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable int id, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (!authorizationService.hasAccessToProcess(currentUser, "DELETE_USER")) {
-            return ResponseEntity.status(403).body("You do not have access to this process");
+
+        if (!hasProcessAccess(currentUser, DELETE_USER)) {
+            throw new AccessDeniedException(DELETE_USER);
         }
+
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully.");
     }

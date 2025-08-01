@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +14,7 @@ public class UserDto {
     private String fullName;
     private String username;
     private String email;
-    private Boolean isActive;
     private List<RoleDto> roles;
     private List<ProcessDto> allowedProcesses;
-
 }
 

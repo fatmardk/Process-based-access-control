@@ -1,12 +1,12 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.ProcessDto;
-import com.example.demo.dto.RoleDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.entity.Role;
-import com.example.demo.entity.User;
-import com.example.demo.entity.UserRole;
-import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.dto.ProcessDto;
+import com.example.demo.model.dto.RoleDto;
+import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.entity.Role;
+import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.UserRole;
+import com.example.demo.model.mapper.UserMapper;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ActivityLogService;
 import com.example.demo.service.UserService;
